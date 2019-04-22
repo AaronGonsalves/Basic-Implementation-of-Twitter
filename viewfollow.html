@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View {{ view }}</title>
+</head>
+<body>
+<center>
+	{{ displaytext }}
+	<br><br>
+	{% for x in viewlist %}
+	{{ x }}
+	<br>
+	{% endfor %}
+	<br>
+	<br>
+	<form method="post" action="/viewfollow">
+		<input type="submit" name="button" value="Back">
+	</form>
+</center>
+</body>
+</html>

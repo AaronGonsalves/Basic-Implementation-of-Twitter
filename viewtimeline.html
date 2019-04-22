@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Timeline</title>
+</head>
+<body>
+<center>
+	{% if empty %}
+	No Tweets To be displayed in your timeline
+	{% else %}
+	Your Timeline's last 50 tweets
+	<br>
+	<br>
+	{% for x in list %}
+	{{ loop.index }} ) {{ x.text }}
+	{% if x.blobkey!=None %}
+	<form method="get" action="/viewtimeline">
+		<input type="submit" name="button" value="Download">
+		<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
+	</form>
+	{% endif %}
+	<br>
+	{% endfor %}
+	{% endif %}
+	<br>
+	<br>
+
+	<form method="post" action="/viewtimeline">
+	<input type="submit" name="button" value="Home">
+	</form>
+</center>
+</body>
+</html>

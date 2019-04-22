@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tweet Post</title>
+</head>
+<body>
+	<center>
+	<form method="post" action="/tweetPost">
+		<input type="text" name="users_tweet" value="{{ string }}"/>
+		<input type="submit" value="Post" name="button"/><input type="submit" value="Cancel" name="button"/>
+	</form>
+	{% if not file_uploaded %}
+	<form action="{{ upload_url }}" method="post" accept=".png, .jpg" enctype="multipart/form-data">
+	<input type="file" name="file" /><br/>
+	<input type="submit" name="button" value="Upload"/>
+	</form>
+	{% endif %}
+	{% if warning %}
+	<p>{{ warning_text }}</p>
+	{% endif %}
+	<br><br>
+	<br><br>
+
+	{% for x in database.tweets %}
+	{{ x.text }}
+	<form method="post" action="/tweetPost">
+		<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
+		<input type="submit" name="button" value="Delete"/>
+		<input type="submit" name="button" value="Edit"/> 
+	</form>
+	{% if x.blobkey!=None %}
+	<form method="get" action="/tweetPost">
+	 	<input type="submit" name="button" value="Download">
+	 	<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
+	 </form>
+	{% endif %}
+	<br>
+	{% endfor %}
+	</center>
+</body>
+</html>

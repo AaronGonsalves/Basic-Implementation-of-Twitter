@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit User Information</title>
+</head>
+<body>
+	<center>
+	<form method="post" action="/edit">
+		Username:<input type="text" name="users_username" value="{% if firstTime %} {{ none }} {% else %} {{ myuser.username }} {% endif %}" {% if not firstTime %} readonly="True" {% endif %} />
+		<br>
+		Name:<input type="text" name="users_name" value="{% if firstTime %} {{ none }} {% else %} {{ database.name }} {% endif %}"/>
+		<br>
+		Profile:<input type="text" name="users_profile" value="{% if firstTime %} {{ none }} {% else %} {{ database.profile }} {% endif %}"/>
+		<br/>
+		<input type="submit" value="Update" name="button"/>
+		</form>
+		<form method="post" action="/edit">
+		{% if firstTime %} {% else %}
+		<input type="submit" value="Cancel" name="button"/>
+		{% endif %}
+	</form>
+	{% if warning %}
+	{{ warning_text }}
+	{% endif %}
+	</center>
+</body>
+</html>

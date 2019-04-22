@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile Page</title>
+</head>
+<body>
+<center>
+	Username : {{ user.username }}
+	Name : {{ user.name }}
+	Profile : {{ user.profile }}
+	<br>
+	<br>
+	{% if empty %}
+	No tweets to display
+	{% else %}
+	List of last 50 tweets:<br>
+	{% for x in tweetlist %}
+	{{ loop.index }} ) {{ x.text }}
+	{% if x.blobkey!=None %}
+	<form method="post" action="/viewpage">
+		<input type="submit" name="button" value="Download">
+		<input type="hidden" name="index" value="{{ loop.index -1 }}"/>
+	</form>
+	{% endif %}
+	<br>
+	{% endfor %}
+	{% endif %}
+
+	<br><br>
+
+	<form method="post" action="/viewpage">
+		{% if display_follow %}
+		<input type="submit" name="button" value="{{ follow_text }}">
+		{% endif %}
+		<input type="submit" name="button" value="Home">
+		<input type="submit" name="button" value="Back">
+	</form>
+</center>
+</body>
+</html>

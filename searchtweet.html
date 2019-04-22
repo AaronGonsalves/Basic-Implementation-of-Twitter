@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search Tweet</title>
+</head>
+<body>
+<center>
+	{% if tweetlist|length > 0 %}
+	{% for x in tweetlist %}
+	{{ loop.index }} ) {{ x[0].text }}
+	<br> by {{ x[1] }} <a href="/viewpage?username={{ x[1] }}&prevsearch={{ tweet }}&tou=tweet">View</a> 
+	{% if x[0].blobkey!=None %}
+	<form method="post" action="/searchtweet">
+		<input type="submit" name="button" value="Download">
+		<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
+	</form>
+	{% endif %}
+	<br><br>
+	{% endfor %}
+	{% else %}
+	No Tweets Found
+	{% endif %}
+
+	<form method="post" action="/searchtweet">
+		<input type="text" name="searchtweet">
+		<input type="submit" name="button" value="Search Again">
+		<input type="submit" name="button" value="Home">
+	</form>
+</center>
+</body>
+</html>
