@@ -2,40 +2,58 @@
 <html>
 <head>
 	<title>Tweet Post</title>
-</head>
-<body>
+	<style>
+		* {
+			font-family: verdana;
+		}
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
+	</head>
+	<body style='font-family="verdana"'>
 	<center>
 	<form method="post" action="/tweetPost">
-		<input type="text" name="users_tweet" value="{{ string }}"/>
-		<input type="submit" value="Post" name="button"/><input type="submit" value="Cancel" name="button"/>
+		<input type="text" name="users_tweet" value="{{ string }}" required="True" maxlength="280"/>
+		<input type="submit" value="Post" name="button" class="button"/>
+
 	</form>
+
 	{% if not file_uploaded %}
-	<form action="{{ upload_url }}" method="post" accept=".png, .jpg" enctype="multipart/form-data">
-	<input type="file" name="file" /><br/>
-	<input type="submit" name="button" value="Upload"/>
-	</form>
+		<form action="{{ upload_url }}" method="post" accept=".png, .jpg" enctype="multipart/form-data" required="True">
+			<input type="file" name="file" required="True"/>
+			<input type="submit" name="button" value="Upload" class="button" class="button" required="True"/>
+		</form>
 	{% endif %}
-	{% if warning %}
-	<p>{{ warning_text }}</p>
-	{% endif %}
-	<br><br>
 	<br><br>
 
 	{% for x in database.tweets %}
-	{{ x.text }}
-	<form method="post" action="/tweetPost">
-		<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
-		<input type="submit" name="button" value="Delete"/>
-		<input type="submit" name="button" value="Edit"/> 
-	</form>
-	{% if x.blobkey!=None %}
-	<form method="get" action="/tweetPost">
-	 	<input type="submit" name="button" value="Download">
-	 	<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
-	 </form>
-	{% endif %}
+		{{ x.text }}
+		<form method="post" action="/tweetPost">
+			<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
+			<input type="submit" name="button" value="Delete" class="button"/>
+			<input type="submit" name="button" value="Edit" class="button"/>
+		</form>
+		{% if x.blobkey!=None %}
+			<form method="get" action="/tweetPost">
+	 			<input type="submit" name="button" value="Download" class="button">
+	 			<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
+	 		</form>
+		{% endif %}
 	<br>
 	{% endfor %}
+	<form method="post" action="/tweetPost">
+		<input type="submit" value="Back" name="button" class="button"/>
+	</form>
 	</center>
 </body>
 </html>

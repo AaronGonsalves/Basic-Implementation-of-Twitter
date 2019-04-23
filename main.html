@@ -1,45 +1,60 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>User Login</title>
+	<style>
+		* {
+			font-family: verdana;
+		}
+		table, th, td {
+			border: 1px solid black;
+		}
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
 </head>
-<body>
+<body style='font-family="verdana"'>
 {% if user %}
-<center><p>{{ Welcome }} {{ myuser.username }}</p></center>
-<center><a href="{{ url }}">Logout</a></center>
-<br>
-<center>You can edit your details<a href="{{ edit_url }}">here</a>
+	<center><p>{{ Welcome }} {{ myuser.username }}</p></center>
+	<center><a href="{{ url }}" class="button">Logout</a></center>
+	<br>
+	<center><a href="{{ edit_url }}" class="button">Edit/Update Details</a></center>
+	<br>
+	<center><a href ="/tweetPost" class="button">Tweet Post</a></center>
+	<br>
 
+	<center><a href = "/viewtimeline" class="button">Timeline</a></center>
+	<br>
+	<center><a href = "/viewfollow?view=Followers" class="button">View Followers</a>
+	<a href = "/viewfollow?view=Following" class="button">View Following</a></center>
+	<br>
 
+	<center>
+		<form method="post" action="/">
+			<input type="text" name="searchname">
+			<input type="submit" name="button" value="Search User" class="button">
+		</form>
+	</center>
 
-<center>You can post a tweet<a href ="/tweetPost">here</a></center>
-<br>
-<br>
-
-<center><a href ="/viewtimeline">Timeline</a></center>
-<br>
-<center><a href = "/viewfollow?view=Followers">View Followers</a></center>
-<center><a href = "/viewfollow?view=Following">View Following</a></center>
-<br>
-
-<form method="post" action="/">
-	<input type="text" name="searchname"><br>
-	<input type="submit" name="button" value="Search User">
-</form>
-
-<br>
-<br>
-
-<form method="post" action="/">
-	<input type="text" name="searchtweet"><br>
-	<input type="submit" name="button" value="Search Tweet">
-</form>
-
+	<center>
+		<form method="post" action="/">
+			<input type="text" name="searchtweet">
+			<input type="submit" name="button" value="Search Tweet" class="button">
+		</form>
+	</center>
 
 {% else %}
-<center><p>Hello 
-	Welcome to Twitter.
-You can <a href="{{ url }}">Login</a> here</p></center>
+	<center><p>Hello Welcome to Twitter. </br></br>
+		You can <a href="{{ url }}" class="button">Login</a> here</p></center>
 {% endif %}
 </body>
 </html>

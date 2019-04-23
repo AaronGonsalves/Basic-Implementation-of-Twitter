@@ -28,7 +28,6 @@ class Edit(webapp2.RequestHandler):
 			'firstTime' : firstTime,
 			'database' : database,
 			'myuser' : myuser
-
 		}
 
 		template = JINJA_ENVIRONMENT.get_template('edit.html')
@@ -48,11 +47,10 @@ class Edit(webapp2.RequestHandler):
 
 		if(firstTime):
 			if self.request.get('button') == 'Update' :
-				
+
 				username = self.request.get('users_username')
 				name = self.request.get('users_name')
 				profile = self.request.get('users_profile')
-
 
 				query = MyUser.query(MyUser.username==username).fetch()
 				warning=True
@@ -64,8 +62,6 @@ class Edit(webapp2.RequestHandler):
 					warning_text='Please enter a valid name'
 				elif(profile==' None ' or profile=='' or profile==None):
 					warning_text='Please enter a valid profile'
-				elif(len(profile)>280):
-					warning_text='Max limit of profile is 280 characters'
 				else:
 					warning=False
 					myuser.username = username
@@ -99,5 +95,3 @@ class Edit(webapp2.RequestHandler):
 
 		template = JINJA_ENVIRONMENT.get_template('edit.html')
 		self.response.write(template.render(template_values))
-
-

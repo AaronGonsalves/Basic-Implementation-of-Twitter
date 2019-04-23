@@ -1,16 +1,35 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Edit Tweet</title>
+	<style>
+		* {
+			font-family: verdana;
+		}
+		table, th, td {
+			border: 1px solid black;
+		}
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
 </head>
-<body>
+<body style='font-family="verdana"'>
 <center>
 	<form method="post" action="/edittweet">
-		<input type="text" name="text" value="{{ text }}"/><br>
-		<input type="submit" name="button" value="Submit">
-		<input type="submit" name="button" value="Delete">
+		<input type="text" name="text" value="{{ text }}" required="True"/><br>
+		<input type="submit" name="button" value="Submit" class="button">
+		<input type="submit" name="button" value="Delete" class="button">
 		<br>
-		<input type="submit" name="button" value="Cancel">
+		<input type="submit" name="button" value="Cancel" class="button">
 	</form>
 </center>
 </body>

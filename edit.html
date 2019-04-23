@@ -1,27 +1,52 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Edit User Information</title>
+	<style>
+		* {
+			font-family: verdana;
+		}
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
 </head>
-<body>
+<body style='font-family="verdana"'>
+
 	<center>
+
 	<form method="post" action="/edit">
-		Username:<input type="text" name="users_username" value="{% if firstTime %} {{ none }} {% else %} {{ myuser.username }} {% endif %}" {% if not firstTime %} readonly="True" {% endif %} />
-		<br>
-		Name:<input type="text" name="users_name" value="{% if firstTime %} {{ none }} {% else %} {{ database.name }} {% endif %}"/>
-		<br>
-		Profile:<input type="text" name="users_profile" value="{% if firstTime %} {{ none }} {% else %} {{ database.profile }} {% endif %}"/>
-		<br/>
-		<input type="submit" value="Update" name="button"/>
+		<table><tr>
+		<td>Username:</td>
+		<td><input type="text" name="users_username" value="{% if firstTime %} {{ none }} {% else %} {{ myuser.username }} {% endif %}" {% if not firstTime %} readonly="True" {% endif %}/></td>
+		<br></tr>
+		<tr><td>Name:</td>
+		<td><input type="text" name="users_name" value="{% if firstTime %} {{ none }} {% else %} {{ database.name }} {% endif %}" required="True"/></td>
+		<br></tr>
+		<tr><td>Profile:</td>
+		<td><input type="text" name="users_profile" value="{% if firstTime %} {{ none }} {% else %} {{ database.profile }} {% endif %}" required="True" maxlength="280"/></td>
+		<br/><br/><tr/>
+	</table>
+		<input type="submit" value="Update" name="button" class="button"/>
 		</form>
+
 		<form method="post" action="/edit">
-		{% if firstTime %} {% else %}
-		<input type="submit" value="Cancel" name="button"/>
-		{% endif %}
-	</form>
+			{% if firstTime %} {% else %}
+				<input type="submit" value="Cancel" name="button" class="button"/>
+				{% endif %}
+		</form>
 	{% if warning %}
-	{{ warning_text }}
+		{{ warning_text }}
 	{% endif %}
+
 	</center>
 </body>
 </html>

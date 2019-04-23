@@ -2,30 +2,47 @@
 <html>
 <head>
 	<title>Search Tweet</title>
-</head>
-<body>
-<center>
-	{% if tweetlist|length > 0 %}
-	{% for x in tweetlist %}
-	{{ loop.index }} ) {{ x[0].text }}
-	<br> by {{ x[1] }} <a href="/viewpage?username={{ x[1] }}&prevsearch={{ tweet }}&tou=tweet">View</a> 
-	{% if x[0].blobkey!=None %}
-	<form method="post" action="/searchtweet">
-		<input type="submit" name="button" value="Download">
-		<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
-	</form>
-	{% endif %}
-	<br><br>
-	{% endfor %}
-	{% else %}
-	No Tweets Found
-	{% endif %}
+	<style>
+		* {
+			font-family: verdana;
+		}
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
+	</head>
+	<body style='font-family="verdana"'>
+		<center>
+			{% if tweetlist|length > 0 %}
+				{% for x in tweetlist %}
+					{{ loop.index }} ) {{ x[0].text }}
+					<br> by {{ x[1] }} <a href="/viewpage?username={{ x[1] }}&prevsearch={{ tweet }}&tou=tweet">View Profile</a>
+					{% if x[0].blobkey!=None %}
+						<form method="post" action="/searchtweet">
+							<input type="submit" name="button" value="Download" class="button">
+							<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
+						</form>
+					{% endif %}
+					<br><br>
+				{% endfor %}
+			{% else %}
+				No Tweets Found
+			{% endif %}
 
-	<form method="post" action="/searchtweet">
-		<input type="text" name="searchtweet">
-		<input type="submit" name="button" value="Search Again">
-		<input type="submit" name="button" value="Home">
-	</form>
-</center>
-</body>
+			<form method="post" action="/searchtweet">
+				<input type="text" name="searchtweet">
+				<input type="submit" name="button" value="Search Again" class="button">
+				<input type="submit" name="button" value="Home" class="button">
+			</form>
+		</center>
+	</body>
 </html>

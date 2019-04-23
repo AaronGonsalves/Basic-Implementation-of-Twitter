@@ -45,9 +45,3 @@ class EditTweet(webapp2.RequestHandler):
 			del database.tweets[index]
 			database.put()
 			self.redirect('/tweetPost')
-
-		
-
-
-
-

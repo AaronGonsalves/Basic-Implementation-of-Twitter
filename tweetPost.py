@@ -38,24 +38,19 @@ class TweetPost(webapp2.RequestHandler):
 		}
 
 		template = JINJA_ENVIRONMENT.get_template('tweetPost.html')
-		self.response.write(template.render(template_values))		
+		self.response.write(template.render(template_values))
 
 	def post(self):
 		self.response.headers['Content-Type'] = 'text/html'
-		
+
 		myuser = ndb.Key('MyUser',users.get_current_user().user_id()).get()
 		database = ndb.Key('MyUserDatabase',myuser.username).get()
 		collection = ndb.Key('BlobCollection',1).get()
 		string = self.request.get('users_tweet')
 
-		warning = len(string)>280 or (len(string)<=0 and len(collection.blobs)==0)
-		warning_text= ''
-		if(len(string)>280):
-			warning_text = 'Tweets can\'t exceed 280 characters'
-		elif(len(string)<=0):
-			warning_text = 'The Tweet is empty'
+		tweet_post_flag = len(string)>280 or (len(string)<=0 and len(collection.blobs)==0)
 
-		if(self.request.get('button')=='Cancel'):
+		if(self.request.get('button')=='Back'):
 			collection.blobs=[]
 			collection.put()
 			self.redirect('/')
@@ -70,11 +65,11 @@ class TweetPost(webapp2.RequestHandler):
 			collection.put()
 			self.redirect('/edittweet?index='+str(int(self.request.get('index'))))
 		elif(self.request.get('button')=='Post'):
-			if(not warning):
+			if(not tweet_post_flag):
 				blobkey=None
 				if(len(collection.blobs)>0):
 					blobkey=collection.blobs[0]
-				collection.blobs=[]	
+				collection.blobs=[]
 				collection.put()
 				new_tweet = Tweet(text=string,blobkey=blobkey)
 				database.tweets.insert(0,new_tweet)
@@ -82,12 +77,9 @@ class TweetPost(webapp2.RequestHandler):
 				self.redirect('/tweetPost')
 
 		template_values={
-			'warning' : warning,
-			'warning_text' : warning_text,
 			'string' : string,
 			'database' : database
 		}
 
 		template = JINJA_ENVIRONMENT.get_template('tweetPost.html')
 		self.response.write(template.render(template_values))
-		

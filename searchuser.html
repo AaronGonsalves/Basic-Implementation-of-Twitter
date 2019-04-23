@@ -1,22 +1,40 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Search Username</title>
-</head>
-<body>
-	{% if searchlist|length > 0 %}
-	{% for x in searchlist %}
-	{{ loop.index }} ) {{ x }} <a href="/viewpage?username={{ x }}&prevsearch={{ searchname }}&tou=user">View</a>
-	<br>
-	{% endfor %}
-	{% else %}
-	No users Found
-	{% endif %}
+	<style>
+		* {
+			font-family: verdana;
+		}
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
+	</head>
+		<body style='font-family="verdana"'>
+		<center>
+			{% if searchlist|length > 0 %}
+				{% for x in searchlist %}
+					{{ loop.index }} ) {{ x }} <a href="/viewpage?username={{ x }}&prevsearch={{ searchname }}&tou=user" class="button">View</a><br>
 
+				{% endfor %}
+			{% else %}
+				No users Found
+			{% endif %}
+			<br>
 	<form method="post" action="/searchuser">
 		<input type="text" name="searchname">
-		<input type="submit" name="button" value="Search Again">
-		<input type="submit" name="button" value="Home">
+		<input type="submit" name="button" value="Search Again" class="button">
+		<input type="submit" name="button" value="Home" class="button">
 	</form>
+</center>
 </body>
 </html>
