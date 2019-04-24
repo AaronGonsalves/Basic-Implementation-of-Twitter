@@ -22,10 +22,11 @@
 		<body style='font-family="verdana"'>
 		<center>
 			{% if searchlist|length > 0 %}
-				{% for x in searchlist %}
-					{{ loop.index }} ) {{ x }} <a href="/viewpage?username={{ x }}&prevsearch={{ searchname }}&tou=user" class="button">View</a><br>
 
+				{% for x in searchlist %}
+					{{ loop.index }} ) {{ x }} <a href="/viewpage?username={{ x }}&prevsearch={{ searchname }}&tou=user" class="button">View Profile</a><br>
 				{% endfor %}
+
 			{% else %}
 				No users Found
 			{% endif %}

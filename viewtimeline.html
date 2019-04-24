@@ -6,9 +6,6 @@
 		* {
 			font-family: verdana;
 		}
-		table, th, td {
-			border: 1px solid black;
-		}
 		.button {
 			background-color: #4CAF50;
 			border: none;
@@ -22,28 +19,27 @@
 			cursor: pointer;
 		}
 	</style>
-</head>
-<body style='font-family="verdana"'>
-<center>
-	{% if empty %}
-		No Tweets To be displayed in your timeline
-	{% else %}
-		Your Timeline's last 50 tweets
-		<br>
-		<br>
-		{% for x in list %}
-			{{ loop.index }} ) {{ x.text }}<br>
-			{% if x.blobkey!=None %}
-			<form method="get" action="/viewtimeline">
-				<input type="submit" name="button" value="Download" class="button">
-				<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
-			</form>
-			{% endif %}
-			<br>
-		{% endfor %}
-	{% endif %}
-	<br><br>
-
+	</head>
+	<body style='font-family="verdana"'>
+		<center>
+			{% if empty %}
+				No Tweets To be displayed in your timeline
+			{% else %}
+				Your Timeline's last 50 tweets
+				<br><br>
+				{% for x in list %}
+					{{ loop.index }} ) {{ x.text }}
+					{% if x.blobkey!=None %}
+						<form method="get" action="/viewtimeline">
+							<input type="submit" name="button" value="Download" class="button">
+							<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
+						</form>
+					{% endif %}
+					<br>
+				{% endfor %}
+		{% endif %}
+	<br>
+	<br>
 	<form method="post" action="/viewtimeline">
 		<input type="submit" name="button" value="Home" class="button">
 	</form>
