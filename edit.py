@@ -62,6 +62,8 @@ class Edit(webapp2.RequestHandler):
 					warning_text='Please enter a valid name'
 				elif(profile==' None ' or profile=='' or profile==None):
 					warning_text='Please enter a valid profile'
+				elif(len(profile)>280):
+					warning_text='Max limit of profile is 280 characters'
 				else:
 					warning=False
 					myuser.username = username
