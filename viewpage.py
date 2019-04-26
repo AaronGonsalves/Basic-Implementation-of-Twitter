@@ -78,6 +78,7 @@ class ViewPage(webapp2.RequestHandler):
 			index = int(self.request.get('index'))
 			blobkey = database.tweets[index].blobkey
 			collection.downloadblob = blobkey
+			print(blobkey)
 			collection.put()
 			self.redirect('/download')
 		else:

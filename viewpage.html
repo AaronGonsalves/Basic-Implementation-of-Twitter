@@ -36,7 +36,8 @@
 			{{ loop.index }} ) {{ x.text }}<br>
 			{% if x.blobkey!=None %}
 				<form method="post" action="/viewpage">
-					<input type="submit" name="button" value="Download" class="button">
+					<img src="http://localhost:8080/_ah/img/{{ x.blobkey }}">
+					<!-- <input type="submit" name="button" value="Download" class="button"> -->
 					<input type="hidden" name="index" value="{{ loop.index -1 }}"/>
 				</form>
 			{% endif %}

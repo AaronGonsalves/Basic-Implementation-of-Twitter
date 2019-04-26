@@ -6,6 +6,7 @@ import os
 from myuser import MyUser
 from myuser import MyUserDatabase
 from tweet import Tweet
+from google.appengine.api import images
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -51,5 +52,7 @@ class SearchTweet(webapp2.RequestHandler):
 			index = int(self.request.get('index'))
 			blobkey = tweetlist[index][0].blobkey
 			collection.downloadblob = blobkey
+			imageurl = images.get_serving_url(blobkey, secure_url=True)
+			print(imageurl)
 			collection.put()
 			self.redirect('/download')

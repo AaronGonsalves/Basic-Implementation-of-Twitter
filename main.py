@@ -74,7 +74,7 @@ class MainPage(webapp2.RequestHandler):
 					collection = ndb.Key('BlobCollection',1).get()
 					index = int(self.request.get('index'))
 					blobkey = finaltweetlist[index].blobkey
-					urlimg = images.get_serving_url(blobkey, secure_url=True)
+					# urlimg = images.get_serving_url(blobkey, secure_url=True)
 					collection.downloadblob = blobkey
 					collection.put()
 					self.redirect('/download')
@@ -96,7 +96,7 @@ class MainPage(webapp2.RequestHandler):
 			'myuser' : myuser,
 			'list' : finaltweetlist,
 			'empty' : empty,
-			'urlimg' : urlimg
+			# 'urlimg' : urlimg
 		}
 
 		template = JINJA_ENVIRONMENT.get_template('main.html')
