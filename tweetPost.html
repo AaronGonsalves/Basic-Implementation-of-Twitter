@@ -35,7 +35,7 @@
 		</form>
 	{% endif %}
 	<br><br>
-
+	<!-- {{intro}} -->
 	{% for x in database.tweets %}
 		{{ x.text }}
 		<form method="post" action="/tweetPost">
@@ -43,12 +43,14 @@
 			<input type="submit" name="button" value="Delete" class="button"/>
 			<input type="submit" name="button" value="Edit" class="button"/>
 		</form>
-		{% if x.blobkey!=None %}
+			{% if x.blobkey!=None %}
 			<form method="get" action="/tweetPost">
+
+				<img src="{{ tweet_url }}">
 	 			<input type="submit" name="button" value="Download" class="button">
 	 			<input type="hidden" value="{{ loop.index - 1 }}" name="index"/>
 	 		</form>
-		{% endif %}
+			{% endif %}
 	<br>
 	{% endfor %}
 	<form method="post" action="/tweetPost">

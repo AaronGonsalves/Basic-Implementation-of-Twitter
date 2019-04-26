@@ -12,11 +12,11 @@ from searchuser import SearchUser
 from searchtweet import SearchTweet
 from viewpage import ViewPage
 from edittweet import EditTweet
-from viewtimeline import ViewTimeline
 from blobcollection import BlobCollection
 from uploadhandler import UploadHandler
 from downloadhandler import DownloadHandler
 from viewfollow import ViewFollow
+from google.appengine.api import images
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -30,10 +30,13 @@ class MainPage(webapp2.RequestHandler):
 
 		url=''
 		url_string=''
+		urlimg =''
 		welcome='Welcome back'
 		edit_url='/edit'
 		user = users.get_current_user()
 		myuser = None
+		finaltweetlist=[]
+		empty=[]
 		collection_key = ndb.Key('BlobCollection', 1)
 		collection = collection_key.get()
 		if collection == None:
@@ -46,10 +49,40 @@ class MainPage(webapp2.RequestHandler):
 			myuser_key = ndb.Key('MyUser', user.user_id())
 			myuser = myuser_key.get()
 
+			if myuser!=None:
+				database = ndb.Key('MyUserDatabase', myuser.username).get()
+				totaltweetlist=[]
+				totaltweetlist+= database.tweets
+
+				for x in database.following:
+					database_other = ndb.Key('MyUserDatabase',x).get()
+					totaltweetlist+= database_other.tweets
+
+				totaltweetlist.sort(key=lambda x: x.time, reverse=True)
+				finaltweetlist=[]
+				count=0
+				for x in totaltweetlist:
+					if(count==50):
+						break
+					else:
+						finaltweetlist.append(x)
+						count=count+1
+
+				empty = finaltweetlist==[]
+
+				if(self.request.get('button')=='Download'):
+					collection = ndb.Key('BlobCollection',1).get()
+					index = int(self.request.get('index'))
+					blobkey = finaltweetlist[index].blobkey
+					urlimg = images.get_serving_url(blobkey, secure_url=True)
+					collection.downloadblob = blobkey
+					collection.put()
+					self.redirect('/download')
+
 			if myuser==None:
 				myuser = MyUser(id=user.user_id(),email_id=user.email())
 				myuser.put()
-				self.redirect('/edit') 
+				self.redirect('/edit')
 		else:
 			url = users.create_login_url(self.request.uri)
 			url_string = 'login'
@@ -60,7 +93,10 @@ class MainPage(webapp2.RequestHandler):
 			'user' : user,
 			'welcome' : welcome,
 			'edit_url' : edit_url,
-			'myuser' : myuser
+			'myuser' : myuser,
+			'list' : finaltweetlist,
+			'empty' : empty,
+			'urlimg' : urlimg
 		}
 
 		template = JINJA_ENVIRONMENT.get_template('main.html')
@@ -82,7 +118,6 @@ app = webapp2.WSGIApplication([
 	('/searchtweet', SearchTweet),
 	('/viewpage', ViewPage),
 	('/edittweet', EditTweet),
-	('/viewtimeline', ViewTimeline),
 	('/upload', UploadHandler),
 	('/download', DownloadHandler),
 	('/viewfollow',ViewFollow)

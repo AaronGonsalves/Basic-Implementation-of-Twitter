@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>User Login</title>
@@ -18,40 +19,54 @@
 			cursor: pointer;
 		}
 	</style>
-</head>
-<body style='font-family="verdana"'>
-{% if user %}
-	<center><p>{{ Welcome }} {{ myuser.username }}</p></center>
-	<center><a href="{{ url }}" class="button">Logout</a></center>
-	<br>
-	<center><a href="{{ edit_url }}" class="button">Edit/Update Details</a></center>
-	<br>
-	<center><a href ="/tweetPost" class="button">Tweet Post</a></center>
+	</head>
+	<body style='font-family="verdana"'>
+		{% if user %}
+			<center><p>{{ Welcome }} {{ myuser.username }}</p></center>
+			<center><a href="{{ url }}" class="button">Logout</a></center>
+			<br>
+			<center><a href="{{ edit_url }}" class="button">Edit/Update Details</a>
+
+			<center><a href ="/tweetPost" class="button">Tweet Post</a></center>
+			<br>
+
+	<center><a href = "/viewfollow?view=Followers" class="button">Followers</a>
+	<a href = "/viewfollow?view=Following" class="button">Following</a></center>
 	<br>
 
-	<center><a href = "/viewtimeline" class="button">Timeline</a></center>
+	<form method="post" action="/">
+		<input type="text" name="searchname">
+		<input type="submit" name="button" value="Search User" class="button">
+	</form>
+
 	<br>
-	<center><a href = "/viewfollow?view=Followers" class="button">View Followers</a>
-	<a href = "/viewfollow?view=Following" class="button">View Following</a></center>
-	<br>
 
-	<center>
-		<form method="post" action="/">
-			<input type="text" name="searchname">
-			<input type="submit" name="button" value="Search User" class="button">
-		</form>
-	</center>
+	<form method="post" action="/">
+		<input type="text" name="searchtweet">
+		<input type="submit" name="button" value="Search Tweet" class="button">
+	</form> <br>
 
-	<center>
-		<form method="post" action="/">
-			<input type="text" name="searchtweet">
-			<input type="submit" name="button" value="Search Tweet" class="button">
-		</form>
-	</center>
+	{% if empty %}
+		No Tweets To be displayed in your timeline
+	{% else %}
+		Your Timeline's last 50 tweets
+		<br><br>
+		{% for x in list %}
+			{{ loop.index }} ) {{ x.text }}
+			{% if x.blobkey!=None %}
+				<form method="get" action="/viewtimeline">
+					<img src="urlimg">
+					<!-- <input type="submit" name="button" value="Download" class="button"> -->
+					<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
+				</form>
+			{% endif %}
+			<br>
+		{% endfor %}
+	{% endif %}
 
-{% else %}
-	<center><p>Hello Welcome to Twitter. </br></br>
-		You can <a href="{{ url }}" class="button">Login</a> here</p></center>
-{% endif %}
-</body>
+	{% else %}
+		<center><p>Hello Welcome to Twitter.
+				You can <a href="{{ url }}" class="button">Login</a> here</p></center>
+	{% endif %}
+	</body>
 </html>
