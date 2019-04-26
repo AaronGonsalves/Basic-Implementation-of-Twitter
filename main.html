@@ -54,9 +54,9 @@
 		{% for x in list %}
 			{{ loop.index }} ) {{ x.text }}
 			{% if x.blobkey!=None %}
-				<form method="get" action="/viewtimeline">
-					<img src="urlimg">
-					<!-- <input type="submit" name="button" value="Download" class="button"> -->
+				<form method="get" action="/">
+					<img src="{{ urlimg }}">
+					<input type="submit" name="button" value="Download" class="button">
 					<input type="hidden" name="index" value="{{ loop.index - 1 }}"/>
 				</form>
 			{% endif %}
