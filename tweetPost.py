@@ -33,7 +33,7 @@ class TweetPost(webapp2.RequestHandler):
 			collection.put()
 			self.redirect('/download')
 
-		template_values={
+		template_values = {
 			'database' : database,
 			'upload_url' : blobstore.create_upload_url('/upload'),
 			'file_uploaded' : file_uploaded
@@ -85,6 +85,5 @@ class TweetPost(webapp2.RequestHandler):
 			'tweet_url' : imageurl
 		}
 
-		print(imageurl)
 		template = JINJA_ENVIRONMENT.get_template('tweetPost.html')
 		self.response.write(template.render(template_values))

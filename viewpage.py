@@ -84,7 +84,7 @@ class ViewPage(webapp2.RequestHandler):
 			database = ndb.Key('MyUserDatabase',username).get()
 			currusername = ndb.Key('MyUser',users.get_current_user().user_id()).get().username
 			curruserdatabase = ndb.Key('MyUserDatabase',currusername).get()
-			
+
 			if(self.request.get('button')=='Follow'):
 				curruserdatabase.following.append(username)
 				database.followers.append(currusername)
