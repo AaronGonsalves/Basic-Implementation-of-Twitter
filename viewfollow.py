@@ -22,18 +22,24 @@ class ViewFollow(webapp2.RequestHandler):
 		if(view=='Followers'):
 			viewlist=database.followers
 			displaytext= 'You\'re being followed by'
+			displayTotalText = 'followers'
 			if(viewlist==[]):
 				displaytext= 'You\'re not being followed by anyone'
 		else:
 			viewlist=database.following
 			displaytext = 'You\'re following'
+			displayTotalText = 'following'
 			if(viewlist==[]):
 				displaytext= 'You\'re not following anyone'
+
+		totalListSize = len(viewlist)
 
 		template_values={
 			'viewlist' : viewlist,
 			'displaytext' : displaytext,
-			'view' : view
+			'view' : view,
+			'totalListSize' : totalListSize,
+			'displayTotalText' : displayTotalText
 		}
 
 		template = JINJA_ENVIRONMENT.get_template('viewfollow.html')
@@ -42,4 +48,3 @@ class ViewFollow(webapp2.RequestHandler):
 	def post(self):
 		if(self.request.get('button')=='Back'):
 			self.redirect('/')
-

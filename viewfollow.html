@@ -20,8 +20,11 @@
 		</style>
 	</head>
 	<body style='font-family="verdana"'>
+
 	<center>
 		{{ displaytext }}
+		<br>
+		Total number of {{ displayTotalText }} are : {{ totalListSize }}
 		<br><br>
 		{% for x in viewlist %}
 			{{ loop.index }} ) {{ x }}
