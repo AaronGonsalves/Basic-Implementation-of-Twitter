@@ -49,7 +49,7 @@ class TweetPost(webapp2.RequestHandler):
 		database = ndb.Key('MyUserDatabase',myuser.username).get()
 		collection = ndb.Key('BlobCollection',1).get()
 		string = self.request.get('users_tweet')
-		# imageurl = ''
+		imageurl = ''
 		tweet_post_flag = len(string)>280 or (len(string)<=0 and len(collection.blobs)==0)
 
 		if(self.request.get('button')=='Back'):
@@ -71,14 +71,14 @@ class TweetPost(webapp2.RequestHandler):
 				blobkey=None
 				if(len(collection.blobs)>0):
 					blobkey=collection.blobs[0]
-					# imageurl = images.get_serving_url(blobkey, secure_url=True)
+					imageurl = images.get_serving_url(blobkey, secure_url=True)
 				collection.blobs=[]
 				collection.put()
 				new_tweet = Tweet(text=string,blobkey=blobkey)
 				database.tweets.insert(0,new_tweet)
 				database.put()
 				self.redirect('/tweetPost')
-
+		
 		template_values={
 			'string' : string,
 			'database' : database
