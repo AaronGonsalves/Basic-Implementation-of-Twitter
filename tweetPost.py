@@ -78,7 +78,7 @@ class TweetPost(webapp2.RequestHandler):
 				database.tweets.insert(0,new_tweet)
 				database.put()
 				self.redirect('/tweetPost')
-		
+
 		template_values={
 			'string' : string,
 			'database' : database
