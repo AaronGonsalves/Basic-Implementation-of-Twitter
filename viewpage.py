@@ -72,15 +72,14 @@ class ViewPage(webapp2.RequestHandler):
 				self.redirect('/searchtweet?searchtweet='+prevsearch)
 			else:
 				self.redirect('/searchuser?searchname='+prevsearch)
-		elif(self.request.get('button')=='Download'):
-			database = ndb.Key('MyUserDatabase',username).get()
-			collection = ndb.Key('BlobCollection',1).get()
-			index = int(self.request.get('index'))
-			blobkey = database.tweets[index].blobkey
-			collection.downloadblob = blobkey
-			print(blobkey)
-			collection.put()
-			self.redirect('/download')
+		# elif(self.request.get('button')=='Download'):
+		# 	database = ndb.Key('MyUserDatabase',username).get()
+		# 	collection = ndb.Key('BlobCollection',1).get()
+		# 	index = int(self.request.get('index'))
+		# 	blobkey = database.tweets[index].blobkey
+		# 	collection.downloadblob = blobkey
+		# 	collection.put()
+		# 	self.redirect('/download')
 		else:
 			database = ndb.Key('MyUserDatabase',username).get()
 			currusername = ndb.Key('MyUser',users.get_current_user().user_id()).get().username

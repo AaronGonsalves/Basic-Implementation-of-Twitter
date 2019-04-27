@@ -30,13 +30,13 @@ class MainPage(webapp2.RequestHandler):
 
 		url=''
 		url_string=''
-		urlimg =''
 		welcome='Welcome back'
 		edit_url='/edit'
 		user = users.get_current_user()
 		myuser = None
 		finaltweetlist=[]
 		empty=[]
+		# global urlimg
 		collection_key = ndb.Key('BlobCollection', 1)
 		collection = collection_key.get()
 		if collection == None:
@@ -95,7 +95,7 @@ class MainPage(webapp2.RequestHandler):
 			'edit_url' : edit_url,
 			'myuser' : myuser,
 			'list' : finaltweetlist,
-			'empty' : empty,
+			'empty' : empty
 			# 'urlimg' : urlimg
 		}
 
