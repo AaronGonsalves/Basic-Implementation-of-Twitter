@@ -70,14 +70,14 @@ class MainPage(webapp2.RequestHandler):
 
 				empty = finaltweetlist==[]
 
-				if(self.request.get('button')=='Download'):
-					collection = ndb.Key('BlobCollection',1).get()
-					index = int(self.request.get('index'))
-					blobkey = finaltweetlist[index].blobkey
-					# urlimg = images.get_serving_url(blobkey, secure_url=True)
-					collection.downloadblob = blobkey
-					collection.put()
-					self.redirect('/download')
+				# if(self.request.get('button')=='Download'):
+				# 	collection = ndb.Key('BlobCollection',1).get()
+				# 	index = int(self.request.get('index'))
+				# 	blobkey = finaltweetlist[index].blobkey
+				# 	# urlimg = images.get_serving_url(blobkey, secure_url=True)
+				# 	collection.downloadblob = blobkey
+				# 	collection.put()
+				# 	self.redirect('/download')
 
 			if myuser==None:
 				myuser = MyUser(id=user.user_id(),email_id=user.email())

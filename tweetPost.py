@@ -26,12 +26,12 @@ class TweetPost(webapp2.RequestHandler):
 
 		file_uploaded = len(collection.blobs)>0
 
-		if(self.request.get('button')=='Download'):
-			index = int(self.request.get('index'))
-			blobkey = database.tweets[index].blobkey
-			collection.downloadblob = blobkey
-			collection.put()
-			self.redirect('/download')
+		# if(self.request.get('button')=='Download'):
+		# 	index = int(self.request.get('index'))
+		# 	blobkey = database.tweets[index].blobkey
+		# 	collection.downloadblob = blobkey
+		# 	collection.put()
+		# 	self.redirect('/download')
 
 		template_values = {
 			'database' : database,

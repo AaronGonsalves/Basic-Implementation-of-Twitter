@@ -47,11 +47,11 @@ class SearchTweet(webapp2.RequestHandler):
 		elif(self.request.get('button')=='Search Again'):
 			tweet = self.request.get('searchtweet')
 			self.redirect('/searchtweet?searchtweet='+tweet)
-		elif(self.request.get('button')=='Download'):
-			collection = ndb.Key('BlobCollection',1).get()
-			index = int(self.request.get('index'))
-			blobkey = tweetlist[index][0].blobkey
-			collection.downloadblob = blobkey
-			# imageurl = images.get_serving_url(blobkey, secure_url=True)
-			collection.put()
-			self.redirect('/download')
+		# elif(self.request.get('button')=='Download'):
+		# 	collection = ndb.Key('BlobCollection',1).get()
+		# 	index = int(self.request.get('index'))
+		# 	blobkey = tweetlist[index][0].blobkey
+		# 	collection.downloadblob = blobkey
+		# 	# imageurl = images.get_serving_url(blobkey, secure_url=True)
+		# 	collection.put()
+		# 	self.redirect('/download')
