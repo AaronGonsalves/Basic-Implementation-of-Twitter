@@ -25,7 +25,7 @@
 			{% if tweetlist|length > 0 %}
 				{% for x in tweetlist %}
 					{{ loop.index }} ) {{ x[0].text }}
-					<br> by {{ x[1] }} <a href="/viewpage?username={{ x[1] }}&prevsearch={{ tweet }}&tou=tweet">View Profile</a>
+					<br> by {{ x[1] }} <a href="/viewpage?username={{ x[1] }}&prevsearch={{ tweet }}&tou=tweet" class="button">View Profile</a>
 					{% if x[0].blobkey!=None %}
 						<form method="post" action="/searchtweet">
 							<img src="http://localhost:8080/_ah/img/{{ x[0].blobkey }}" >

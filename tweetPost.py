@@ -48,7 +48,7 @@ class TweetPost(webapp2.RequestHandler):
 		myuser = ndb.Key('MyUser',users.get_current_user().user_id()).get()
 		database = ndb.Key('MyUserDatabase',myuser.username).get()
 		collection = ndb.Key('BlobCollection',1).get()
-		string = self.request.get('users_tweet')
+		string = self.request.get('users_tweet').lower()
 		imageurl = ''
 		tweet_post_flag = len(string)>280 or (len(string)<=0 and len(collection.blobs)==0)
 

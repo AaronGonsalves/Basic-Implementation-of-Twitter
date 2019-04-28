@@ -20,7 +20,7 @@ class SearchTweet(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
 
-		searchtweet = self.request.GET.get('searchtweet')
+		searchtweet = self.request.GET.get('searchtweet').lower()
 		totaldatabase = MyUserDatabase.query().fetch()
 		global tweetlist
 		tweetlist = []

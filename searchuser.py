@@ -16,7 +16,7 @@ class SearchUser(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
 
-		searchname = self.request.GET.get('searchname')
+		searchname = self.request.GET.get('searchname').lower()
 
 		search = MyUserDatabase.query()
 
@@ -40,4 +40,3 @@ class SearchUser(webapp2.RequestHandler):
 		elif(self.request.get('button')=='Search Again'):
 			name = self.request.get('searchname')
 			self.redirect('/searchuser?searchname='+name)
-		

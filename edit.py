@@ -48,9 +48,9 @@ class Edit(webapp2.RequestHandler):
 		if(firstTime):
 			if self.request.get('button') == 'Update' :
 
-				username = self.request.get('users_username')
-				name = self.request.get('users_name')
-				profile = self.request.get('users_profile')
+				username = self.request.get('users_username').lower()
+				name = self.request.get('users_name').lower()
+				profile = self.request.get('users_profile').lower()
 
 				query = MyUser.query(MyUser.username==username).fetch()
 				warning=True
