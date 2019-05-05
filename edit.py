@@ -54,13 +54,13 @@ class Edit(webapp2.RequestHandler):
 
 				query = MyUser.query(MyUser.username==username).fetch()
 				warning=True
-				if(username==' None ' or username=='' or username==None):
+				if(username==' none ' or username=='' or username==None):
 					warning_text='Enter a valid username'
 				elif(query!=[] and query!=None):
 					warning_text='This username is already taken'
-				elif(name==' None ' or name=='' or name==None):
+				elif(name==' none ' or name=='' or name==None):
 					warning_text='Please enter a valid name'
-				elif(profile==' None ' or profile=='' or profile==None):
+				elif(profile==' none ' or profile=='' or profile==None):
 					warning_text='Please enter a valid profile'
 				elif(len(profile)>280):
 					warning_text='Max limit of profile is 280 characters'
